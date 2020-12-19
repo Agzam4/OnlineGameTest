@@ -1,5 +1,14 @@
-# OnlineGameTest
+# OnlineGame
 ***
-## In v2.7 memory leak (if player left game)
-### This is fixed in v2.8 and more
+#### v2.9
+◈ Fixed memory leak
+
+◈ Added Reachable checker
+
+***
+#### Developing:
+◈ Online updates
+
+◈ Game targets & rules
+
 ***
