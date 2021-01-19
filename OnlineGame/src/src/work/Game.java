@@ -74,8 +74,8 @@ public class Game {
 		sendMap = false;
 		isGame = true;
 		
+		// Creating Client
 		Client client = new Client(name);
-
 		String s = client.setUpNetwork(ip, ss);
 		JOptionPane.showMessageDialog(null, s);
 		if(!s.equals("Successful connection")) {
@@ -96,6 +96,7 @@ public class Game {
 					map[i][i1] = 1;
 				}
 			}
+			// Send msg: "GETMAP", in order for the admin to give the map to the client
 			Send(client, "GETMAP");
 		}
 		
@@ -248,8 +249,8 @@ public class Game {
 					g.dispose();
 					iv.repaint();
 
-					// TODO: MOVE
 
+					// MOVE
 					if(right) {
 						goX += speed;
 					}
@@ -325,8 +326,9 @@ public class Game {
 					sx = (sx + px)*0.9 - px;
 					sy = (sy + py)*0.9 - py;
 
-					// TODO: send data
+					// Send data
 					if(sendMap) {
+						// Send map: step2
 						String txtmap = "M&!";
 						for (int y = 0; y < Generator.H; y++) {
 							for (int x = 0; x < Generator.W; x++) {
@@ -334,17 +336,17 @@ public class Game {
 							}
 							txtmap += "\n";
 						}
-						System.out.println(txtmap);
 						Send(client, txtmap);
 						sendMap = false;
 					}else {
 						Send(client, "#&!" + (int)(px) + "&!" + (int)(py) + "&!");
 					}
 					
-					//((newName.equals(notMyName)) ? newName + "2" : newName));
-					try{Thread.sleep(millis);
+					try{
+						Thread.sleep(millis);
 					}catch(InterruptedException e){
-					DebugInfo.debugMsg.add(DebugInfo.getAllInfo(e));}
+						DebugInfo.debugMsg.add(DebugInfo.getAllInfo(e));
+					}
 				}
 				Sounds.stop();;
 			}
@@ -355,6 +357,7 @@ public class Game {
 		iv.requestFocus();
 		iv.addKeyListener(new KeyListener() {
 			
+			// Codes: "$" - on, "#" - off
 			private final String[] sfcs = new String[] {
 					"AGZAM4$FLY", "AGZAM4#FLY",
 					"AGZAM4$TWG", "AGZAM4#TWG"
@@ -366,45 +369,56 @@ public class Game {
 				int start = sfc.length()-10;
 				if(start < 0)start = 0;
 				sfc = sfc.substring(start);
-				if(sfc.equals(sfcs[0]))canFly = true;
-				if(sfc.equals(sfcs[1]))canFly = false;
-				if(sfc.equals(sfcs[2]))canTwg = true;
-				if(sfc.equals(sfcs[3]))canTwg = false;
+				if(sfc.equals(sfcs[0]))
+					canFly = true;
+				if(sfc.equals(sfcs[1]))
+					canFly = false;
+				if(sfc.equals(sfcs[2]))
+					canTwg = true;
+				if(sfc.equals(sfcs[3]))
+					canTwg = false;
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_RIGHT:
 					right = false;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_LEFT){
+					break;
+				case KeyEvent.VK_LEFT:
 					left = false;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_UP){
+					break;
+				case KeyEvent.VK_UP:
 					up = false;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_DOWN){
+					break;
+				case KeyEvent.VK_DOWN:
 					down = false;
+					break;
+				default:
+					break;
 				}
-				//				key = false;
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_RIGHT:
 					right = true;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_LEFT){
+					break;
+				case KeyEvent.VK_LEFT:
 					left = true;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_UP){
+					break;
+				case KeyEvent.VK_UP:
 					up = true;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_DOWN){
+					break;
+				case KeyEvent.VK_DOWN:
 					down = true;
-				}
-				if(e.getKeyCode() == KeyEvent.VK_F1){
+					break;
+				case KeyEvent.VK_F1:
 					showInfo = !showInfo;
+					break;
+				default:
+					break;
 				}
 			}
 		});
@@ -491,7 +505,6 @@ public class Game {
 
 
 	//	private boolean isPlatform(double px2, double py2, int t, Graphics2D g) {
-	//		// FIXME
 	//		int nx = (int) (px2/size);
 	//		int ny = (int) (py2/size);
 	//		g.drawRect(size*nx, (int) ny*size, size, size);
@@ -518,9 +531,11 @@ public class Game {
 				String message[] = msg.split("&!");
 				if(!nick.equals(myName)) {
 					if(msg.equals("GETMAP") && admin && initMap) {
+						// Send map: step1
 						sendMap = true;
 					}else {
 						if(message[0].equals("#")) {
+							// Getting position
 							notMyName = nick.replaceAll("&:", "&!");
 							try {
 								px2 = Integer.valueOf(message[1]);
@@ -528,6 +543,7 @@ public class Game {
 							} catch (NumberFormatException e) {
 							}
 						}else if(message[0].equals("M") && !admin && !initMap){
+							// Getting map
 							System.out.println("GETTING MAP");
 							String[] xp = message[1].split("\n");
 							int w = xp[0].length();

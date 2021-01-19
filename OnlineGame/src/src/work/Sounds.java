@@ -9,30 +9,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sounds {
-
-//	public static final int BG_MUSIC_1 = 0;
-//	public static final int BG_MUSIC_2 = 1;
-	
-//	private static AudioInputStream[] audioip = InitAIS();
-//	
-//	private static AudioInputStream[] InitAIS() {
-//		File_ file = new File_();
-//		
-//		File[] files = file.GetDir(System.getProperty("user.dir") + "\\data\\datapacks");
-//		AudioInputStream[] audioip = new AudioInputStream[files.length];
-//		for (int i = 0; i < audioip.length; i++) {
-//			try {
-//				audioip[i] = AudioSystem.getAudioInputStream(
-//						new File(files[i] + "\\BG" + i + ".wav").getAbsoluteFile());
-//			} catch (UnsupportedAudioFileException | IOException e) {
-//				System.err.println("ID: " + i);
-//				System.err.println(System.getProperty("user.dir") + "\\" + i + ".wav");
-//				e.printStackTrace();
-//			}
-//		}
-//		return audioip;
-//	}
-
 			
 	private static Clip getClip() {
 		try {
@@ -62,7 +38,7 @@ public class Sounds {
 		try {
 			try {
 				clip.open(ais);
-				clip.loop(-1);
+				clip.loop(-1); // while(true) { play music }
 			    clip.start();
 			} catch (IOException e) {
 			}

@@ -27,7 +27,7 @@ public class Server {
 	private void go(int ss) {
 		try {
 			ServerSocket serverSock = new ServerSocket(ss);
-			boolean truee = true;
+			boolean truee = true; // TODO: add "Exit" button
 			System.err.println("\n\nServer was started\n\n");
 			while (truee) {
 				Socket clientSocket = serverSock.accept();

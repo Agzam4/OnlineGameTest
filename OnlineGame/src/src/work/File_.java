@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,21 +22,6 @@ public class File_ {
 		byte[] all = Files.readAllBytes(Paths.get(name));
 		string = new String(all);
 		return string;
-	}
-	
-	public boolean CanReadFile(String name) {
-		String string = "";
-		try(FileReader reader = new FileReader(name)) {
-            int c;
-            while((c=reader.read())!=-1){
-            	string = string + (char)c;
-            }
-            return true;
-        }
-        catch(IOException ex){
-        	return false;
-        }
-		
 	}
 	
 	public void WriteFile(String filename, String text) throws IOException {

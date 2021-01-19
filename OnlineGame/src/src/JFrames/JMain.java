@@ -45,14 +45,25 @@ import javax.swing.border.CompoundBorder;
 public class JMain extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	
+	// JPanels
 	private static JPanel contentPane;
 	private static JPanel panel;
+	// Socket input
 	private JTextField socket;
+	
+	// Colors
 	private static final Color BACKGROUND = new Color(13,17,23);
 	private static final Color FOREGROUND = new Color(201,209,217);
+	
+	// IP:
 	private static String LOOPBACK_HOST;
 	private static String LOCAL_HOST;
 	private static String PUBLIC_HOST;
+	
+	/** 
+	 * @author Agzam4
+	 **/
 	private static final String BYAGZAM4 = "by Agzam4";
 	
 	/**
@@ -63,12 +74,9 @@ public class JMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					int i = 0/0;
-					//cccccc
 					JMain frame = new JMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
-//					e.printStackTrace();
 					System.err.println(e.getStackTrace()[0]);
 					JOptionPane.showMessageDialog(null, DebugInfo.getAllInfo(e));
 				}
@@ -81,6 +89,7 @@ public class JMain extends JFrame {
 	 */
 	public JMain() {
 
+		// Set IP <defaults>;
 		try {
 			LOCAL_HOST = Inet4Address.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e3) {
@@ -95,8 +104,6 @@ public class JMain extends JFrame {
 			DebugInfo.debugMsg.add(DebugInfo.getAllInfo(e3));
 		}
 		LOOPBACK_HOST = Inet4Address.getLoopbackAddress().getHostAddress();
-		
-		ButtonsGraphics buttonsGraphics = new ButtonsGraphics();
 		
 		addWindowListener(new WindowListener() {
 			
@@ -133,20 +140,21 @@ public class JMain extends JFrame {
 			public void windowActivated(WindowEvent e) {
 			}
 		});
+		
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setTitle(BYAGZAM4);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(BACKGROUND);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel iv = new JPanel();
 		iv.setBackground(BACKGROUND);
 		iv.setVisible(false);
-//		contentPane.add(iv, BorderLayout.CENTER);
 		
 		panel = new JPanel();
 		panel.setBackground(BACKGROUND);
@@ -189,6 +197,8 @@ public class JMain extends JFrame {
 		join.setForeground(FOREGROUND);
 		go.setForeground(FOREGROUND);
 		addTPButton.setForeground(FOREGROUND);
+		
+		ButtonsGraphics buttonsGraphics = new ButtonsGraphics();
 		buttonsGraphics.Convert(createRoom, new Color(35,134,54), new Color(27,92,42), new Color(18,47,32));
 		buttonsGraphics.Convert(join, new Color(35,134,54), new Color(27,92,42), new Color(18,47,32));
 		buttonsGraphics.Convert(go, new Color(35,134,54), new Color(27,92,42), new Color(18,47,32));
@@ -249,11 +259,6 @@ public class JMain extends JFrame {
 		lblNewLabel_3.setForeground(FOREGROUND);
 		panel_7.add(lblNewLabel_3);
 		
-//		JPanel panel_8 = new JPanel();
-//		panel_8.setBackground(BACKGROUND);
-//		panel_4.add(panel_8);
-//		panel_8.add(go);
-
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(
 				new String[] {System.getProperty("user.name")}));
@@ -375,16 +380,6 @@ public class JMain extends JFrame {
 					} catch (IOException e1) {
 					}
 				}
-//				if(!socket.getText().equals("")) {
-//					if(Integer.valueOf(socket.getText()) < 1250) {
-//						ipil.setText("It is better to use at least 1250");
-//						ipil.setBorder(new CompoundBorder(new LineBorder(new Color(93,68,17), 1, true),
-//								new EmptyBorder(5, 5, 5, 5)));
-//					}else {
-//						ipil.setText("12");
-//						ipil.setBorder(null);
-//					}
-//				}
 			}
 		});
 		
@@ -394,6 +389,7 @@ public class JMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ShowDataInput(panel_4, panel);		
 				jcr.setText("Joining");	
+				/** Search for available hosts **/
 //				Thread findHosts = new Thread() {
 //					
 //					@Override
@@ -439,18 +435,16 @@ public class JMain extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				Go(panel_4, iv);
-//				contentPane.repaint();
 				contentPane.removeAll();
 				contentPane.add(iv, BorderLayout.CENTER);
 				iv.setVisible(true);
-//				System.out.println(contentPane.getComponents().getClass().getMethods());
 				contentPane.repaint();
 				if(jcr.getText().equals("Creating Room")) {
 
 					Thread T = new Thread() {
 						@Override
 						public void run() {
+							// Create server
 							Server server = new Server();
 							int ss = Integer.valueOf(socket.getText());
 							server.main(ss);
@@ -463,7 +457,8 @@ public class JMain extends JFrame {
 						DebugInfo.debugMsg.add(DebugInfo.getAllInfo(e1));
 					}
 				}
-
+				
+				// Start game
 				Game game = new Game();
 				try {
 					game.Go(iv, comboBox.getEditor().getItem() + "",
@@ -483,11 +478,11 @@ public class JMain extends JFrame {
 		panel_4.add(go);
 
 		JPanel addTP = new JPanel();
-		
 		addTPButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Add textures
 				contentPane.removeAll();
 				contentPane.add(addTP);
 				contentPane.repaint();
@@ -511,6 +506,7 @@ public class JMain extends JFrame {
 		Sounds.stop();
 	}
 
+	//This is need to editable JComboBox
 	class ItemEditor extends BasicComboBoxEditor {
 		
 	    public void setItem(Object anObject) {

@@ -67,7 +67,7 @@ public class Client implements Publisher {
 	}
 	
 	public boolean sendMessage(String message) {
-		Message msg = new Message(nickname, message,0); //FIXME
+		Message msg = new Message(nickname, message); // TODO: maybe add id to players
 		try {
 			writer.writeObject(msg);
 			writer.flush();
@@ -97,6 +97,7 @@ public class Client implements Publisher {
 					}
 				} 
 			}catch (StreamCorruptedException | SocketException e) {
+				// Client crash
 				DebugInfo.debugMsg.add(DebugInfo.getAllInfo(e));
 				Game.StopGame();
 				JMain.showMenu();

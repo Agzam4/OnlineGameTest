@@ -8,6 +8,7 @@ import javax.swing.text.PlainDocument;
 
 public class Filters {
 
+	// Filters for JTextFields & JComboBoxs
 	public void AddServerSocketFilter(JTextField socket) {
 		PlainDocument doc = (PlainDocument) socket.getDocument();
 		doc.setDocumentFilter(new ServerSocketFilter(socket));

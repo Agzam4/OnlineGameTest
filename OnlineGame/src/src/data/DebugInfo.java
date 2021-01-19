@@ -9,6 +9,9 @@ import work.File_;
 
 public class DebugInfo {
 	
+	/**
+	 * Write all Exception to file
+	 */
 	public static ArrayList<String> debugMsg = new ArrayList<String>();
 	
 	public static void createLogOfErrs() {

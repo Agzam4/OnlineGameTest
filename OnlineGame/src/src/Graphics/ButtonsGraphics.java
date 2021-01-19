@@ -11,6 +11,10 @@ import data.DebugInfo;
 
 public class ButtonsGraphics {
 
+	/**
+	 * Effects to buttonss
+	 */
+	
 	public void Convert(JComponent button, Color backgroundThenOnButton, Color backgroundThen_No_OnButton,  Color backgroundThenPress) {
 		
 		if(backgroundThen_No_OnButton == null) {

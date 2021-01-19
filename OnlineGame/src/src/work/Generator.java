@@ -32,14 +32,14 @@ public class Generator {
 		
 		int[][] map = new int[w][h];
 		ArrayList<Character> characters = new ArrayList<Character>();
-		characters.add(' '); // 0
-		characters.add('#'); // 1
-		characters.add('_'); // 2
-		characters.add('/'); // 3
-		characters.add('\\');// 4
-		characters.add('Y'); // 5
-		characters.add('|'); // 6
-		characters.add('\''); // 7
+		characters.add(' ');  // ID: 0
+		characters.add('#');  // ID: 1
+		characters.add('_');  // ID: 2
+		characters.add('/');  // ID: 3
+		characters.add('\\'); // ID: 4
+		characters.add('Y');  // ID: 5
+		characters.add('|');  // ID: 6
+		characters.add('\''); // ID: 7
 
 		for (int y = 0; y < h; y++) {
 			char[] cs = lines[y].toCharArray();

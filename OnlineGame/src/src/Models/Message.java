@@ -7,12 +7,11 @@ public class Message implements Serializable {
 	
 	private String nickname;
 	private String message;
-	private int id;
 
-	public Message(String nick, String msg, int iD) {
+	public Message(String nick, String msg) {
 		nickname = nick;
 		message = msg;
-		id = iD;
+//		id = iD;
 	}
 	
 //	public Message(String msg) {
@@ -26,7 +25,7 @@ public class Message implements Serializable {
 	public String getNickname() {
 		return nickname;
 	}
-	public int getID() {
-		return id;
-	}
+//	public int getID() {
+//		return id;
+//	}
 }
